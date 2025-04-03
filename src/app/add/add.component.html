@@ -1,0 +1,60 @@
+<!-- 
+  Add Component Template
+  This template renders a form that allows the user to add a new clothing item.
+  The form is built with Angular's reactive forms, binding each input to a form control.
+-->
+<h2>Add New Clothing Item</h2>
+<form [formGroup]="clothingForm" (ngSubmit)="onSubmit()">
+  <!-- Clothing Name Field -->
+  <div>
+    <label>Name:</label>
+    <input formControlName="name" />
+  </div>
+  
+  <!-- Clothing Category Field -->
+  <div>
+    <label>Category:</label>
+    <input formControlName="category" />
+  </div>
+  
+  <!-- Clothing Size Field -->
+  <div>
+    <label>Size:</label>
+    <input formControlName="size" />
+  </div>
+  
+  <!-- Clothing Color Field -->
+  <div>
+    <label>Color:</label>
+    <input formControlName="color" />
+  </div>
+  
+  <!-- Clothing Price Field -->
+  <div>
+    <label>Price:</label>
+    <input formControlName="price" type="number" />
+  </div>
+  
+  <!-- Clothing Brand Field -->
+  <div>
+    <label>Brand:</label>
+    <input formControlName="brand" />
+  </div>
+  
+  <!-- Optional fields for an initial review -->
+  <div>
+    <label>Review Username:</label>
+    <input formControlName="reviewUsername" />
+  </div>
+  <div>
+    <label>Review Rating:</label>
+    <input formControlName="reviewRating" type="number" />
+  </div>
+  <div>
+    <label>Review Comment:</label>
+    <textarea formControlName="reviewComment"></textarea>
+  </div>
+  
+  <!-- Submit Button is disabled if the form is invalid -->
+  <button type="submit" [disabled]="clothingForm.invalid">Add Clothing Item</button>
+</form>

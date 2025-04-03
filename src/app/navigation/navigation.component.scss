@@ -1,0 +1,19 @@
+/* navigation.component.scss */
+.navbar {
+    background: linear-gradient(135deg, #2a9d8f, #264653);
+    padding: 1rem 2rem;
+    display: flex;
+    gap: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .nav-link {
+    color: #fff;
+    font-weight: 600;
+    transition: transform 0.2s ease, color 0.2s ease;
+  
+    &:hover {
+      transform: scale(1.05);
+      color: #e9c46a;
+    }
+  }

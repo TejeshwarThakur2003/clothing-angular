@@ -1,0 +1,17 @@
+h1 {
+    color: #264653;
+    margin-bottom: 10px;
+  }
+  
+  p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    
+    a {
+      color: #e76f51;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }

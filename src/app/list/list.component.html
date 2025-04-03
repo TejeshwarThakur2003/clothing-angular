@@ -1,0 +1,49 @@
+<!-- List Component Template: Displays clothing items along with an option to view/hide reviews -->
+<h2>List of Clothing Items</h2>
+
+<!-- Show loading state -->
+<div *ngIf="loading">Loading...</div>
+
+<!-- Show error message if any -->
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<ul>
+  <!-- Loop through each clothing item -->
+  <li *ngFor="let item of clothingItems">
+    <div class="item-details">
+      <!-- Display basic details for each item -->
+      <strong>{{ item.name }}</strong> - {{ item.brand }} - ${{ item.price }}
+      
+      <!-- Toggle button to show/hide reviews -->
+      <div class="reviews-toggle">
+        <button (click)="toggleReviews(item._id)">
+          {{ reviewsVisibility[item._id] ? 'Hide Reviews' : 'View Reviews' }}
+        </button>
+      </div>
+
+      <!-- Reviews section -->
+      <div *ngIf="reviewsVisibility[item._id]" class="reviews-container">
+        <!-- Check if reviews exist; if not, display a message -->
+        <div *ngIf="item.reviews?.length; else noReviews">
+          <!-- Loop through each review for the item -->
+          <div *ngFor="let review of item.reviews" class="review-item">
+            <div class="review-header">
+              <span class="review-username">{{ review.username }}</span>
+              <span class="review-rating">Rating: {{ review.rating }}/5</span>
+            </div>
+            <p class="review-comment">{{ review.comment }}</p>
+          </div>
+        </div>
+        <ng-template #noReviews>
+          <p class="no-reviews">No reviews yet.</p>
+        </ng-template>
+      </div>
+    </div>
+
+    <!-- Actions for each item -->
+    <div class="item-actions">
+      <a [routerLink]="['/edit', item._id]">Edit</a>
+      <button (click)="deleteItem(item._id)">Delete</button>
+    </div>
+  </li>
+</ul>

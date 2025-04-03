@@ -1,0 +1,29 @@
+<!-- Edit Component Template: Form to update an existing clothing item -->
+<h2>Edit Clothing Item</h2>
+<form [formGroup]="clothingForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Name:</label>
+    <input formControlName="name" />
+  </div>
+  <div>
+    <label>Category:</label>
+    <input formControlName="category" />
+  </div>
+  <div>
+    <label>Size:</label>
+    <input formControlName="size" />
+  </div>
+  <div>
+    <label>Color:</label>
+    <input formControlName="color" />
+  </div>
+  <div>
+    <label>Price:</label>
+    <input formControlName="price" type="number" />
+  </div>
+  <div>
+    <label>Brand:</label>
+    <input formControlName="brand" />
+  </div>
+  <button type="submit" [disabled]="clothingForm.invalid">Update Clothing Item</button>
+</form>
