@@ -2,6 +2,13 @@
 
 This Angular application is part of a MEAN stack project for Assignment 2. It provides a dynamic interface for managing clothing items including creating, listing, editing, and deleting items along with viewing associated reviews.
 
+## Environment File code
+
+export const environment = {
+    production: false,
+    apiUrl: 'http://localhost:5002/api/clothing'
+  };
+
 ## Overview
 
 - **Framework:** Angular 
@@ -25,3 +32,4 @@ This Angular application is part of a MEAN stack project for Assignment 2. It pr
 1. **Clone the repository:**
    git clone https://github.com/TejeshwarThakur2003
    cd clothing-app-frontend
+
