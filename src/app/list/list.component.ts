@@ -1,58 +1,57 @@
 import { Component, OnInit } from '@angular/core';
+import { ClothingService, ClothingItem } from '../services/clothing.service';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { ClothingService } from '../services/clothing.service';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, RouterLink],
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
+  imports: [CommonModule, RouterModule]
 })
 export class ListComponent implements OnInit {
-  clothingItems: any[] = [];
+  clothingItems: ClothingItem[] = [];
   loading = false;
-  error = '';
+  error: string | null = null;
+  reviewsVisibility: { [key: string]: boolean } = {};
 
-  // Object to track review visibility for each clothing item by its ID
-  reviewsVisibility: { [id: string]: boolean } = {};
+  constructor(
+    private clothingService: ClothingService,
+    private router: Router
+  ) {}
 
-  constructor(private clothingService: ClothingService) {}
-
-  ngOnInit() {
-    this.getClothingItems();
+  ngOnInit(): void {
+    this.fetchItems();
   }
 
-  getClothingItems() {
+  fetchItems(): void {
     this.loading = true;
-    this.clothingService.getAllClothing().subscribe({
-      next: (data: any[]) => {
-        this.clothingItems = data;
+    this.clothingService.getClothingItems().subscribe({
+      next: (items) => {
+        this.clothingItems = items;
         this.loading = false;
       },
-      error: () => {
-        this.error = 'Error fetching items';
+      error: (err) => {
+        this.error = 'Error fetching clothing items';
         this.loading = false;
       }
     });
   }
 
-  deleteItem(id: string) {
+  toggleReviews(id: string): void {
+    this.reviewsVisibility[id] = !this.reviewsVisibility[id];
+  }
+
+  deleteItem(id: string): void {
     if (confirm('Are you sure you want to delete this item?')) {
-      this.clothingService.deleteClothing(id).subscribe({
-        next: () => {
-          this.clothingItems = this.clothingItems.filter(item => item._id !== id);
-        },
-        error: () => {
-          alert('Failed to delete the item.');
+      this.clothingService.deleteClothingItem(id).subscribe({
+        next: () => this.fetchItems(),
+        error: (err) => {
+          this.error = 'Error deleting item';
+          console.error(err);
         }
       });
     }
-  }
-
-  // Toggle the visibility of reviews for a given clothing item by ID
-  toggleReviews(itemId: string) {
-    this.reviewsVisibility[itemId] = !this.reviewsVisibility[itemId];
   }
 }

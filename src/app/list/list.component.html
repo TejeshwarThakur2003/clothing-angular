@@ -16,14 +16,14 @@
       
       <!-- Toggle button to show/hide reviews -->
       <div class="reviews-toggle">
-        <button (click)="toggleReviews(item._id)">
-          {{ reviewsVisibility[item._id] ? 'Hide Reviews' : 'View Reviews' }}
+        <button (click)="toggleReviews(item._id!)">
+          {{ reviewsVisibility[item._id!] ? 'Hide Reviews' : 'View Reviews' }}
         </button>
       </div>
 
       <!-- Reviews section -->
-      <div *ngIf="reviewsVisibility[item._id]" class="reviews-container">
-        <!-- Check if reviews exist; if not, display a message -->
+      <div *ngIf="reviewsVisibility[item._id!]" class="reviews-container">
+        <!-- Check if reviews exist. if not it will display a message -->
         <div *ngIf="item.reviews?.length; else noReviews">
           <!-- Loop through each review for the item -->
           <div *ngFor="let review of item.reviews" class="review-item">
@@ -42,8 +42,8 @@
 
     <!-- Actions for each item -->
     <div class="item-actions">
-      <a [routerLink]="['/edit', item._id]">Edit</a>
-      <button (click)="deleteItem(item._id)">Delete</button>
+      <a [routerLink]="['/edit', item._id!]">Edit</a>
+      <button (click)="deleteItem(item._id!)">Delete</button>
     </div>
   </li>
 </ul>
